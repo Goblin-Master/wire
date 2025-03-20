@@ -8,9 +8,9 @@ package main
 
 import (
 	"wire/internal/conf"
-	"wire/internal/controller"
-	"wire/internal/repo"
-	"wire/internal/service"
+	"wire/internal/controller/controller_user"
+	"wire/internal/repo/repo_user"
+	"wire/internal/service/service_user"
 )
 
 // Injectors from wire.go:
@@ -20,13 +20,13 @@ func WireApp() (*conf.HttpServer, error) {
 	sugaredLogger := conf.InitZap()
 	engine := conf.NewGin()
 	db := conf.InitDB()
-	userRepo := &repo.UserRepo{
+	userRepo := &repo_user.UserRepo{
 		DB: db,
 	}
-	userService := &service.UserService{
+	userService := &service_user.UserService{
 		UserRepo: userRepo,
 	}
-	userController := controller.NewUserController(engine, userService, sugaredLogger)
+	userController := controller_user.NewUserController(engine, userService, sugaredLogger)
 	httpServer := &conf.HttpServer{
 		Logger:         sugaredLogger,
 		Engine:         engine,

@@ -5,14 +5,14 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"wire/internal/config"
-	"wire/internal/controller"
+	"wire/internal/controller/controller_user"
 	"wire/internal/middleware"
 )
 
 type HttpServer struct {
 	Logger         *zap.SugaredLogger
 	Engine         *gin.Engine
-	UserController *controller.UserController
+	UserController *controller_user.UserController
 }
 
 func NewGin() *gin.Engine {
