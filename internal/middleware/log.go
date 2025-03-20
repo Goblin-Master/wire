@@ -17,7 +17,7 @@ func log(logger *zap.SugaredLogger) gin.HandlerFunc {
 
 		// 记录日志
 		cost := time.Since(start)
-		logger.Info(path,
+		logger.Infof(path,
 			zap.Int("status", c.Writer.Status()),
 			zap.String("method", c.Request.Method),
 			zap.String("path", path),

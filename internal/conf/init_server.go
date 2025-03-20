@@ -15,10 +15,10 @@ type HttpServer struct {
 	UserController *controller.UserController
 }
 
-func NewGin(logger *zap.SugaredLogger) *gin.Engine {
+func NewGin() *gin.Engine {
 	engine := gin.New()
 	//加载中间件
-	middleware.LoadMiddleware(engine, logger)
+	middleware.LoadMiddleware(engine)
 	return engine
 }
 

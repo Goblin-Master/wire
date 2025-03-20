@@ -2,11 +2,10 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
 )
 
-func LoadMiddleware(r *gin.Engine, logger *zap.SugaredLogger) {
-	r.Use(log(logger))
+func LoadMiddleware(r *gin.Engine) {
+	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	r.Use(Cors())
 }
