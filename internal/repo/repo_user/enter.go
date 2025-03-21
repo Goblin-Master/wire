@@ -2,51 +2,41 @@ package repo_user
 
 import (
 	"gorm.io/gorm"
-	"wire/internal/global"
 	"wire/internal/model"
 	"wire/internal/type/type_user"
-	"wire/internal/utils"
-	"wire/internal/utils/snowflake"
 )
 
 type IUserRepo interface {
-	GetUserInfo(req type_user.UserInfoRequest) (resp type_user.UserInfoResponse, err error)
-	CreateUser(req type_user.UserCreateRequest) (resp type_user.UserCreateResponse, err error)
+	GetUserInfo(id int64) (model model.User, err error)
+	CreateUser(id int64, req type_user.UserCreateRequest) (err error)
 	UpdateUser(req type_user.UserUpdateRequest) (err error)
-	DeleteUser(req type_user.UserDeleteRequest) (err error)
+	DeleteUser(id int64) (err error)
 }
 
 type UserRepo struct {
 	DB *gorm.DB
 }
 
-func (r *UserRepo) GetUserInfo(req type_user.UserInfoRequest) (resp type_user.UserInfoResponse, err error) {
-	var user model.User
-	err = r.DB.Take(&user, utils.StringToInt64(req.ID)).Error
-	if err != nil {
-		return
-	}
-	resp = type_user.UserInfoResponse{
-		Username: user.Username,
-		Password: user.Password,
-	}
+func (r *UserRepo) GetUserInfo(id int64) (model model.User, err error) {
+	err = r.DB.Take(&model, id).Error
 	return
 }
 
-func (r *UserRepo) CreateUser(req type_user.UserCreateRequest) (resp type_user.UserCreateResponse, err error) {
-	resp.ID = snowflake.GetIntId(global.Node)
-	err = r.DB.Create(&model.User{
-		ID:       resp.ID,
+func (r *UserRepo) CreateUser(id int64, req type_user.UserCreateRequest) (err error) {
+	return r.DB.Create(&model.User{
+		ID:       id,
 		Username: req.Username,
 		Password: req.Password,
 	}).Error
-	return
 }
 
 func (r *UserRepo) UpdateUser(req type_user.UserUpdateRequest) (err error) {
-	return r.DB.Model(&model.User{}).Updates(req).Error
+	return r.DB.Model(&model.User{}).Where("id = ?", req.ID).Updates(map[string]any{
+		"username": req.Username,
+		"password": req.Password,
+	}).Error
 }
 
-func (r *UserRepo) DeleteUser(req type_user.UserDeleteRequest) (err error) {
-	return r.DB.Delete(model.User{}, req.ID).Error
+func (r *UserRepo) DeleteUser(id int64) (err error) {
+	return r.DB.Delete(model.User{}, id).Error
 }

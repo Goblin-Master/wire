@@ -8,6 +8,10 @@ import (
 )
 
 var Provider = wire.NewSet(
+	User,
+)
+
+var User = wire.NewSet(
 	controller_user.NewUserController,
 	wire.Bind(new(service_user.IUserService), new(*service_user.UserService)),
 	wire.Bind(new(repo_user.IUserRepo), new(*repo_user.UserRepo)),
