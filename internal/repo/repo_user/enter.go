@@ -22,7 +22,7 @@ type UserRepo struct {
 
 func (r *UserRepo) GetUserInfo(req type_user.UserInfoRequest) (resp type_user.UserInfoResponse, err error) {
 	var user model.User
-	err = r.DB.Take(user, utils.StringToInt64(req.ID)).Error
+	err = r.DB.Take(&user, utils.StringToInt64(req.ID)).Error
 	if err != nil {
 		return
 	}

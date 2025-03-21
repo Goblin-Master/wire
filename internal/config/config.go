@@ -11,12 +11,12 @@ type Config struct {
 	DB  DB  `mapstructure:"db"`
 }
 type App struct {
-	Addr string `mapstructure:"addr"`
+	Host string `mapstructure:"host"`
 	Port string `mapstructure:"port"`
 }
 
 func (app *App) Link() string {
-	return fmt.Sprintf("%s:%s", app.Addr, app.Port)
+	return fmt.Sprintf("%s:%s", app.Host, app.Port)
 }
 
 type DB struct {
