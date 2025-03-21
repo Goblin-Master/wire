@@ -18,7 +18,7 @@ import (
 //go:generate wire
 func WireApp() (*conf.HttpServer, error) {
 	sugaredLogger := conf.InitZap()
-	engine := conf.NewGin()
+	engine := conf.InitGin()
 	db := conf.InitDB()
 	userRepo := &repo_user.UserRepo{
 		DB: db,

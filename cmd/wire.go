@@ -14,7 +14,7 @@ func WireApp() (*conf.HttpServer, error) {
 	panic(wire.Build(
 		wire.Struct(new(conf.HttpServer), "*"),
 		conf.InitZap,
-		conf.NewGin,
+		conf.InitGin,
 		conf.InitDB,
 		controller.Provider,
 	))

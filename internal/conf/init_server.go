@@ -14,7 +14,7 @@ type HttpServer struct {
 	UserController *controller_user.UserController
 }
 
-func NewGin() *gin.Engine {
+func InitGin() *gin.Engine {
 	engine := gin.New()
 	//加载中间件
 	middleware.LoadMiddleware(engine)
