@@ -11,7 +11,7 @@ import (
 func InitDB() *gorm.DB {
 	db, err := gorm.Open(mysql.Open(config.Conf.DB.DSN()), &gorm.Config{
 		DisableForeignKeyConstraintWhenMigrating: true, //不生成外键约束
-		Logger:                                   logger.Default.LogMode(logger.Info),
+		Logger:                                   logger.Default.LogMode(logger.Warn),
 		PrepareStmt:                              true,
 	})
 	if err != nil {
