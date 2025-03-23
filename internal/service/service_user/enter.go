@@ -42,7 +42,12 @@ func (s *UserService) CreateUser(req type_user.UserCreateRequest) (resp type_use
 }
 
 func (s *UserService) UpdateUser(req type_user.UserUpdateRequest) (err error) {
-	err = s.UserRepo.UpdateUser(req)
+	id := utils.StringToInt64(req.ID)
+	_, err = s.UserRepo.GetUserInfo(id)
+	if err != nil {
+		return res.ErrResp(err, res.USER_NOT_EXIST)
+	}
+	err = s.UserRepo.UpdateUser(id, req.Username, req.Password)
 	if err != nil {
 		return res.ErrResp(err, res.USER_UPDATE_ERROR)
 	}

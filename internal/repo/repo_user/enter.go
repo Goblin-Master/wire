@@ -9,7 +9,7 @@ import (
 type IUserRepo interface {
 	GetUserInfo(id int64) (model model.User, err error)
 	CreateUser(id int64, req type_user.UserCreateRequest) (err error)
-	UpdateUser(req type_user.UserUpdateRequest) (err error)
+	UpdateUser(id int64, name, password string) (err error)
 	DeleteUser(id int64) (err error)
 }
 
@@ -30,10 +30,10 @@ func (r *UserRepo) CreateUser(id int64, req type_user.UserCreateRequest) (err er
 	}).Error
 }
 
-func (r *UserRepo) UpdateUser(req type_user.UserUpdateRequest) (err error) {
-	return r.DB.Model(&model.User{}).Where("id = ?", req.ID).Updates(map[string]any{
-		"username": req.Username,
-		"password": req.Password,
+func (r *UserRepo) UpdateUser(id int64, name, password string) (err error) {
+	return r.DB.Model(&model.User{}).Where("id = ?", id).Updates(map[string]any{
+		"username": name,
+		"password": password,
 	}).Error
 }
 
