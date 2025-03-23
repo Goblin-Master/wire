@@ -9,17 +9,21 @@
 7. ...
 ## 项目目录结构
 ```
-J:.
 ├─.githooks
-├─cmd
-└─internal
-    ├─conf
-    ├─config
-    ├─controller
-    ├─middleware
-    ├─model
-    ├─repo
-    └─service
+├─cmd  程序入口
+└─internal 内部包
+    ├─common 公共包
+    │  └─res
+    ├─conf 初始化包
+    ├─config 环境变量
+    ├─controller 控制器
+    ├─global 全局变量
+    ├─middleware 中间件
+    ├─model 模型
+    ├─repo  数据库操作
+    ├─service 业务逻辑
+    ├─type 自定义响应和请求
+    └─utils 工具包
 
 ```
 ## 开发前
@@ -102,6 +106,8 @@ fix: fix a bug
 
 ### 内容
 请删除无用的导入。您还可以通过设置GoLand使用快捷键ctrl + alt + o自动删除无用的导入。
+使用这个架构，你要了解google的wire，用wire自动生成依赖注入。
+eg: cd cmd wire生成相关注入 然后go run main.go wire_gen.go便可以跑起本程序
 
 ## **你必须知道**
 1. **不要**提交任何敏感信息，例如`api_key`、`address`或`password`。
