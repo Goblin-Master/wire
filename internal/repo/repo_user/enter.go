@@ -18,7 +18,7 @@ type UserRepo struct {
 }
 
 // 检查结构体是否实现了某接口的防御代码
-var _IUserRepo = (*UserRepo)(nil)
+var _ IUserRepo = (*UserRepo)(nil)
 
 func (r *UserRepo) GetUserInfo(id int64) (model model.User, err error) {
 	err = r.DB.Take(&model, id).Error

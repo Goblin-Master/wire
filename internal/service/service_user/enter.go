@@ -20,7 +20,7 @@ type UserService struct {
 }
 
 // 检查结构体是否实现了某接口的防御代码
-var _IUserService = (*UserService)(nil)
+var _ IUserService = (*UserService)(nil)
 
 func (s *UserService) GetUserInfo(req type_user.UserInfoRequest) (resp type_user.UserInfoResponse, err error) {
 	data, err := s.UserRepo.GetUserInfo(utils.StringToInt64(req.ID))
