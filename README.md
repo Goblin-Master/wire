@@ -1,4 +1,4 @@
-# island
+# igin-wire
 ## 项目技术栈
 1. Gin
 2. Gorm
